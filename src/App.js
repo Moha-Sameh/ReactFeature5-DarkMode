@@ -2,32 +2,24 @@
 import { GlobalStyle, ThemeButton } from "./styles";
 
 // Components
+
 import CookieList from "./components/ProductList";
 import Home from "./components/Home";
+import themes from "./Themeing/Theme";
 import { ThemeProvider } from "styled-components";
-
-const theme = {
-  light: {
-    mainColor: "#242424", // main font color
-    backgroundColor: "#fefafb", // main background color
-    pink: "#ff85a2",
-    red: "#ff3232",
-  },
-  dark: {
-    mainColor: "#fefafb", // main font color
-    backgroundColor: "#242424", // main background color
-    pink: "#ff85a2",
-    red: "#ff3232",
-  },
-};
+//import { ThemeToggler } from "./Themeing/UseTheme";
+import { useState } from "react";
 
 function App() {
+  const [theme, setTheme] = useState(themes.light);
+  const toggleTheme = () => {
+    if (theme === themes.light) setTheme(themes.dark);
+    else setTheme(themes.light);
+  };
   return (
-    <ThemeProvider theme={theme.light}>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <ThemeButton onClick={() => alert("I do nothing..")}>
-        Dark Theme
-      </ThemeButton>
+      <ThemeButton onClick={toggleTheme}>Switch Theme</ThemeButton>
       <Home />
       <CookieList />
     </ThemeProvider>
